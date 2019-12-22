@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+}
+
+group 'fr.il_totore'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    compile 'com.amihaiemil.web:eo-yaml:2.0.1'
+}
+
+publishing {
+    publications {
+        compiler(MavenPublication) {
+            groupId group
+            artifactId 'lavadrop'
+            version version
+
+            artifact new File(buildDir, "/libs/" + archivesBaseName + '-' + version + '-all.jar')
+        }
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.compile]
+}
