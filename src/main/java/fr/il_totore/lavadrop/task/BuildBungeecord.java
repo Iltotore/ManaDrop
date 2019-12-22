@@ -8,7 +8,7 @@ public class BuildBungeecord extends DefaultTask {
 
     @TaskAction
     public void run() {
-        BungeePlugin plugin = (BungeePlugin) getProject().getExtensions().getByName("spigot");
+        BungeePlugin plugin = (BungeePlugin) getProject().getExtensions().getByName("bungeecord");
         plugin.getDescription().ifPresent(desc -> desc.run(this));
     }
 }
