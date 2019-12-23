@@ -22,7 +22,7 @@ publishing {
     publications {
         compiler(MavenPublication) {
             groupId group
-            artifactId 'lavadrop'
+            artifactId 'manadrop'
             version version
 
             artifact new File(buildDir, "/libs/" + archivesBaseName + '-' + version + '-all.jar')
