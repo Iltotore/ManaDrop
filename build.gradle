@@ -2,10 +2,12 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id "com.gradle.plugin-publish" version "0.10.1"
+    id "java-gradle-plugin"
 }
 
 group 'fr.il_totore'
-version '1.0-SNAPSHOT'
+version '0.1-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -18,6 +20,15 @@ dependencies {
     compile 'com.amihaiemil.web:eo-yaml:2.0.1'
 }
 
+gradlePlugin {
+    plugins {
+        manadrop {
+            id = 'fr.il_totore.manadrop'
+            implementationClass = 'fr.il_totore.manadrop.ManaDrop'
+        }
+    }
+}
+
 publishing {
     publications {
         compiler(MavenPublication) {
@@ -26,6 +37,21 @@ publishing {
             version version
 
             artifact new File(buildDir, "/libs/" + archivesBaseName + '-' + version + '-all.jar')
+        }
+    }
+}
+
+pluginBundle {
+    ext['gradle.publish.key'] = System.getenv('gradle.publish.key')
+    ext['gradle.publish.secret'] = System.getenv('gradle.publish.secret')
+    website = 'https://github.com/Iltotore/ManaDrop'
+    vcsUrl = 'https://github.com/Iltotore/ManaDrop'
+    description = 'A Gradle plugin for Minecraft Development'
+    tags = ['minecraft', 'spigot', 'bungeecord']
+
+    plugins {
+        manadrop {
+            displayName = 'ManaDrop'
         }
     }
 }
