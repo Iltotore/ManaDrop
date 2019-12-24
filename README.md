@@ -10,7 +10,7 @@ Here is main features of this plugin. For more details about them, check the [wi
 
 ## Spigot
 ### NMS Dependencies
-You can use the `buildTools` to install automatically NMS dependencies in your local maven repository.
+You can use the `buildTools` task to install automatically NMS dependencies in your local maven repository.
 ```gradle
 buildTools {
     versions '1.8.8', '1.9', '1.12.2' //etc...
