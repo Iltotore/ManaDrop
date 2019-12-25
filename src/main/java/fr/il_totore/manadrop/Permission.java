@@ -1,13 +1,11 @@
 package fr.il_totore.manadrop;
 
-import com.amihaiemil.eoyaml.Yaml;
 import fr.il_totore.manadrop.optional.OptionalArrayList;
 import fr.il_totore.manadrop.optional.OptionalList;
-import fr.il_totore.manadrop.yaml.EditableYamlMappingBuilder;
-import fr.il_totore.manadrop.yaml.YamlSerializable;
 import groovy.lang.Closure;
 import org.gradle.api.Action;
 import org.gradle.util.ConfigureUtil;
+import org.simpleyaml.configuration.ConfigurationSection;
 
 import java.util.Optional;
 
@@ -19,17 +17,15 @@ public class Permission implements YamlSerializable {
     private OptionalList<ChildPermission> children = new OptionalArrayList<>();
 
     @Override
-    public void write(EditableYamlMappingBuilder permissionBuilder) {
+    public void write(ConfigurationSection section) {
         if(name == null) throw new NullPointerException("name cannot be null !");
-        EditableYamlMappingBuilder builder = new EditableYamlMappingBuilder(Yaml.createYamlMappingBuilder());
-        description.ifPresent(value -> builder.add("description", value));
-        defaultType.ifPresent(value -> builder.add("default", value.getId()));
+        ConfigurationSection permSection = section.createSection(name);
+        description.ifPresent(value -> permSection.set("description", value));
+        defaultType.ifPresent(value -> permSection.set("default", value.getId()));
         children.ifAllPresent(0, children -> {
-            EditableYamlMappingBuilder childBuilder = new EditableYamlMappingBuilder(Yaml.createYamlMappingBuilder());
-            children.forEach(child -> childBuilder.add(child.getName(), String.valueOf(child.doesInherit())));
-            builder.add("children", childBuilder.build());
+            ConfigurationSection childSection = permSection.createSection("children");
+            children.forEach(child -> childSection.set(child.getName(), String.valueOf(child.doesInherit())));
         });
-        permissionBuilder.add(name, builder.build());
     }
 
     public void named(String name) {

@@ -1,4 +1,4 @@
-package fr.il_totore.manadrop.task;
+package fr.il_totore.manadrop.bungeecord.task;
 
 import fr.il_totore.manadrop.bungeecord.BungeePlugin;
 import org.gradle.api.DefaultTask;

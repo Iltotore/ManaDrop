@@ -1,4 +1,4 @@
-package fr.il_totore.manadrop.task;
+package fr.il_totore.manadrop.spigot.task;
 
 import fr.il_totore.manadrop.spigot.SpigotPlugin;
 import org.gradle.api.DefaultTask;

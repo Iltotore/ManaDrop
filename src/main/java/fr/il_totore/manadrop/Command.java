@@ -1,11 +1,8 @@
 package fr.il_totore.manadrop;
 
-import com.amihaiemil.eoyaml.Yaml;
 import fr.il_totore.manadrop.optional.OptionalArrayList;
 import fr.il_totore.manadrop.optional.OptionalList;
-import fr.il_totore.manadrop.yaml.EditableYamlMappingBuilder;
-import fr.il_totore.manadrop.yaml.YamlSerializable;
-import fr.il_totore.manadrop.yaml.YamlUtil;
+import org.simpleyaml.configuration.ConfigurationSection;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -44,14 +41,13 @@ public class Command implements YamlSerializable {
     }
 
     @Override
-    public void write(EditableYamlMappingBuilder commandsBuilder) {
+    public void write(ConfigurationSection section) {
         if(name == null) throw new NullPointerException("name cannot be null !");
-        EditableYamlMappingBuilder builder = new EditableYamlMappingBuilder(Yaml.createYamlMappingBuilder());
-        description.ifPresent(value -> builder.add("description", value));
-        permission.ifPresent(value -> builder.add("permission", value));
-        aliases.ifAllPresent(0, value -> builder.add("aliases", YamlUtil.fromCollection(value).build()));
-        permissionMessage.ifPresent(value -> builder.add("permission-message", value));
-        usage.ifPresent(value -> builder.add("usage", value));
-        commandsBuilder.add(name, builder.build());
+        ConfigurationSection commandSection = section.createSection(name);
+        description.ifPresent(value -> commandSection.set("description", value));
+        permission.ifPresent(value -> commandSection.set("permission", value));
+        aliases.ifAllPresent(0, values -> commandSection.set("aliases", values));
+        permissionMessage.ifPresent(value -> commandSection.set("permission-message", value));
+        usage.ifPresent(value -> commandSection.set("usage", value));
     }
 }

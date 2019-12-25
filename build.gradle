@@ -13,11 +13,12 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io/" }
 }
 
 dependencies {
     implementation gradleApi()
-    compile 'com.amihaiemil.web:eo-yaml:2.0.1'
+    shadow 'com.github.carleslc:simple-yaml:1.4.1'
 }
 
 gradlePlugin {
@@ -29,18 +30,6 @@ gradlePlugin {
     }
 }
 
-publishing {
-    publications {
-        compiler(MavenPublication) {
-            groupId group
-            artifactId 'manadrop'
-            version version
-
-            artifact new File(buildDir, "/libs/" + archivesBaseName + '-' + version + '-all.jar')
-        }
-    }
-}
-
 pluginBundle {
     ext['gradle.publish.key'] = System.getenv('gradle.publish.key')
     ext['gradle.publish.secret'] = System.getenv('gradle.publish.secret')
@@ -48,7 +37,6 @@ pluginBundle {
     vcsUrl = 'https://github.com/Iltotore/ManaDrop'
     description = 'A Gradle plugin for Minecraft Development'
     tags = ['minecraft', 'spigot', 'bungeecord']
-
     plugins {
         manadrop {
             displayName = 'ManaDrop'
@@ -57,5 +45,11 @@ pluginBundle {
 }
 
 shadowJar {
-    configurations = [project.configurations.compile]
+    configurations = [project.configurations.shadow]
+    classifier ''
+}
+
+jar {
+    enabled false
+    dependsOn shadowJar
 }
