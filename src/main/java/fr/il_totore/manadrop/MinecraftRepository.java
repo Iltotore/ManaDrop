@@ -26,6 +26,10 @@ public class MinecraftRepository {
         return instance.sonatypeRepository();
     }
 
+    public static MavenArtifactRepository paperRepository() {
+        return instance.paperRepository();
+    }
+
     public static class StandardMinecraftRepository {
 
         private RepositoryHandler repositoryHandler;
@@ -50,6 +54,11 @@ public class MinecraftRepository {
         public MavenArtifactRepository sonatypeRepository() {
             return repositoryHandler.maven(repository ->
                     repository.setUrl(URI.create("https://oss.sonatype.org/content/repositories/snapshots")));
+        }
+
+        public MavenArtifactRepository paperRepository() {
+            return repositoryHandler.maven(repository ->
+                    repository.setUrl(URI.create("https://papermc.io/repo/repository/maven-public/")));
         }
     }
 }
