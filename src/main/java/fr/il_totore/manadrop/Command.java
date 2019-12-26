@@ -5,6 +5,7 @@ import fr.il_totore.manadrop.optional.OptionalList;
 import org.simpleyaml.configuration.ConfigurationSection;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Command implements YamlSerializable {
@@ -42,7 +43,7 @@ public class Command implements YamlSerializable {
 
     @Override
     public void write(ConfigurationSection section) {
-        if(name == null) throw new NullPointerException("name cannot be null !");
+        Objects.requireNonNull(name, "name cannot be null !");
         ConfigurationSection commandSection = section.createSection(name);
         description.ifPresent(value -> commandSection.set("description", value));
         permission.ifPresent(value -> commandSection.set("permission", value));

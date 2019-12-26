@@ -10,10 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class BuildTools extends DefaultTask {
 
@@ -30,8 +27,8 @@ public class BuildTools extends DefaultTask {
 
     @TaskAction
     public void run() throws IOException {
-        if(workDir == null) throw new NullPointerException("workDir is undefined !");
-        if(mavenPath == null) throw new NullPointerException("Can't find maven path !");
+        Objects.requireNonNull(workDir, "workDir cannot be null !");
+        Objects.requireNonNull(mavenPath, "Can't find mavenPath !");
         if(!workDir.exists()) workDir.mkdirs();
         File buildTools = new File(workDir, "BuildTools.jar");
         if(refreshBuildTools) buildTools.delete();
