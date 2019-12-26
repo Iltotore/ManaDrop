@@ -31,4 +31,5 @@ public class ManaDrop implements Plugin<Project> {
 
         project.getExtensions().create("bungee", BungeePlugin.class, project);
     }
+
 }
