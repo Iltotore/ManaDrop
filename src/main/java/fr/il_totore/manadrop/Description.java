@@ -13,13 +13,12 @@ import org.simpleyaml.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Description implements YamlSerializable, ChildTask {
 
-    private String encoding = StandardCharsets.UTF_8.name();
     private File file;
 
     //Required
@@ -46,9 +45,10 @@ public class Description implements YamlSerializable, ChildTask {
 
     @Override
     public void write(ConfigurationSection section) {
-        if(name == null || name.isEmpty()) throw new NullPointerException("main cannot be null or empty !");
+        Objects.requireNonNull(name, "name cannot be null !");
+        if(name.isEmpty()) throw new IllegalArgumentException("name cannot be empty !");
         section.set("name", name);
-        if(main == null) throw new NullPointerException("main cannot be null !");
+        Objects.requireNonNull(main, "main cannot be null !");
         section.set("main", main);
         version.ifPresent(value -> section.set("version", value));
         authors.ifSingle(value -> section.set("author", value));
@@ -80,10 +80,6 @@ public class Description implements YamlSerializable, ChildTask {
         } catch(IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void encoded(String encoding) {
-        this.encoding = encoding;
     }
 
     public void descriptionFile(File file) {
