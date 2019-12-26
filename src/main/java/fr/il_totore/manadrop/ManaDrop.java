@@ -31,7 +31,7 @@ public class ManaDrop implements Plugin<Project> {
 
         project.getExtensions().create("bungee", BungeePlugin.class, project);
 
-        MinecraftRepository.setInstance(new MinecraftRepository.StandardMinecraftRepository(project.getRepositories()));
+        MinecraftRepositoryHelper.setInstance(new MinecraftRepositoryHelper.MinecraftRepository(project.getRepositories()));
     }
 
 }
