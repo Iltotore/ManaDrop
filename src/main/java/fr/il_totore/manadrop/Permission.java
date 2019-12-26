@@ -7,6 +7,7 @@ import org.gradle.api.Action;
 import org.gradle.util.ConfigureUtil;
 import org.simpleyaml.configuration.ConfigurationSection;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class Permission implements YamlSerializable {
@@ -18,7 +19,7 @@ public class Permission implements YamlSerializable {
 
     @Override
     public void write(ConfigurationSection section) {
-        if(name == null) throw new NullPointerException("name cannot be null !");
+        Objects.requireNonNull(name, "name cannot be null !");
         ConfigurationSection permSection = section.createSection(name);
         description.ifPresent(value -> permSection.set("description", value));
         defaultType.ifPresent(value -> permSection.set("default", value.getId()));

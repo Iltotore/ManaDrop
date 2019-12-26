@@ -26,7 +26,7 @@ public class BuildTools extends DefaultTask {
     public String mavenPath = System.getenv("MAVEN_HOME") + "/bin/mvn" + (System.getenv("OS").toLowerCase().contains("win") ? ".cmd" : "");
 
     @TaskAction
-    public void run() throws IOException {
+    public void run() throws IOException, InterruptedException {
         Objects.requireNonNull(workDir, "workDir cannot be null !");
         Objects.requireNonNull(mavenPath, "Can't find mavenPath !");
         if(!workDir.exists()) workDir.mkdirs();
@@ -87,7 +87,7 @@ public class BuildTools extends DefaultTask {
 
                 buildProcess.waitFor();
             } catch(InterruptedException e) {
-                if(stopOnError) throw new RuntimeException(e);
+                if(stopOnError) throw e;
                 e.printStackTrace();
             }
         }

@@ -1,6 +1,6 @@
 package fr.il_totore.manadrop;
 
-public class MinecraftDependency {
+public class MinecraftDependencyHelper {
 
     public static String spigotApiDependency(String version) {
         return "org.spigotmc:spigot-api:" + version + "-R0.1-SNAPSHOT";

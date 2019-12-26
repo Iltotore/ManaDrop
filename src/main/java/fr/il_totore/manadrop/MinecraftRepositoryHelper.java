@@ -5,16 +5,16 @@ import org.gradle.api.artifacts.repositories.MavenArtifactRepository;
 
 import java.net.URI;
 
-public class MinecraftRepository {
+public class MinecraftRepositoryHelper {
 
-    private static StandardMinecraftRepository instance;
+    private static MinecraftRepository instance;
 
-    public static StandardMinecraftRepository getInstance() {
+    public static MinecraftRepository getInstance() {
         return instance;
     }
 
-    public static void setInstance(StandardMinecraftRepository instance) {
-        MinecraftRepository.instance = instance;
+    public static void setInstance(MinecraftRepository instance) {
+        MinecraftRepositoryHelper.instance = instance;
     }
 
 
@@ -30,11 +30,11 @@ public class MinecraftRepository {
         return instance.paperRepository();
     }
 
-    public static class StandardMinecraftRepository {
+    public static class MinecraftRepository {
 
         private RepositoryHandler repositoryHandler;
 
-        public StandardMinecraftRepository(RepositoryHandler repositoryHandler) {
+        public MinecraftRepository(RepositoryHandler repositoryHandler) {
             this.repositoryHandler = repositoryHandler;
         }
 
