@@ -5,12 +5,12 @@ import org.gradle.api.Project;
 
 import java.util.Optional;
 
-public class SpigotPlugin {
+public class SpigotExtension {
 
     private Project project;
     private Optional<SpigotDescription> description = Optional.empty();
 
-    public SpigotPlugin(Project project) {
+    public SpigotExtension(Project project) {
         this.project = project;
     }
 

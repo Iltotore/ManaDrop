@@ -1,7 +1,7 @@
 package fr.il_totore.manadrop;
 
-import fr.il_totore.manadrop.bungeecord.BungeePlugin;
-import fr.il_totore.manadrop.spigot.SpigotPlugin;
+import fr.il_totore.manadrop.bungeecord.BungeeExtension;
+import fr.il_totore.manadrop.spigot.SpigotExtension;
 import fr.il_totore.manadrop.bungeecord.task.BuildBungeecord;
 import fr.il_totore.manadrop.spigot.task.BuildSpigot;
 import fr.il_totore.manadrop.spigot.task.BuildTools;
@@ -23,13 +23,13 @@ public class ManaDrop implements Plugin<Project> {
         BuildSpigot buildSpigot = project.getTasks().create("spigotPlugin", BuildSpigot.class);
         buildSpigot.setGroup("spigot");
 
-        project.getExtensions().create("spigot", SpigotPlugin.class, project);
+        project.getExtensions().create("spigot", SpigotExtension.class, project);
 
         //Bungeecord
         BuildBungeecord buildBungeecord = project.getTasks().create("bungeePlugin", BuildBungeecord.class);
         buildBungeecord.setGroup("bungeecord");
 
-        project.getExtensions().create("bungee", BungeePlugin.class, project);
+        project.getExtensions().create("bungee", BungeeExtension.class, project);
 
         MinecraftRepositoryHelper.setInstance(new MinecraftRepositoryHelper.MinecraftRepository(project.getRepositories()));
     }

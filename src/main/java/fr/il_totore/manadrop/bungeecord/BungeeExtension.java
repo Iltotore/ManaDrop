@@ -5,12 +5,12 @@ import org.gradle.api.Project;
 
 import java.util.Optional;
 
-public class BungeePlugin {
+public class BungeeExtension {
 
     private Project project;
     private Optional<BungeeDescription> description = Optional.empty();
 
-    public BungeePlugin(Project project) {
+    public BungeeExtension(Project project) {
         this.project = project;
     }
 
