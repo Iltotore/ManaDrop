@@ -2,6 +2,7 @@ package fr.il_totore.manadrop;
 
 import fr.il_totore.manadrop.bungeecord.BungeeExtension;
 import fr.il_totore.manadrop.mcp.task.DownloadMCP;
+import fr.il_totore.manadrop.mcp.task.ExtractMCP;
 import fr.il_totore.manadrop.spigot.SpigotExtension;
 import fr.il_totore.manadrop.bungeecord.task.BuildBungeecord;
 import fr.il_totore.manadrop.spigot.task.BuildSpigot;
@@ -10,10 +11,14 @@ import fr.il_totore.manadrop.task.CheckYaml;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
+import java.io.File;
+
 public class ManaDrop implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
+
+        File downloadDir = new File(project.getProjectDir(), "downloads/");
 
         //Misc
         project.getTasks().create("checkYaml", CheckYaml.class);
@@ -35,8 +40,11 @@ public class ManaDrop implements Plugin<Project> {
         MinecraftRepositoryHelper.setInstance(new MinecraftRepositoryHelper.MinecraftRepository(project.getRepositories()));
 
         //MCP
-        DownloadMCP downloadMCP = project.getTasks().create("downloadMCP", DownloadMCP.class, project);
+        DownloadMCP downloadMCP = project.getTasks().create("downloadMCP", DownloadMCP.class, downloadDir);
         downloadMCP.setGroup("mcp");
+
+        ExtractMCP extractMCP = project.getTasks().create("extractMCP", ExtractMCP.class, downloadDir, project.getProjectDir());
+        extractMCP.setGroup("mcp");
     }
 
 }

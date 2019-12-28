@@ -1,7 +1,6 @@
 package fr.il_totore.manadrop.mcp.task;
 
 import org.gradle.api.DefaultTask;
-import org.gradle.api.Project;
 import org.gradle.api.tasks.TaskAction;
 
 import javax.inject.Inject;
@@ -20,13 +19,14 @@ public class DownloadMCP extends DefaultTask {
     private boolean refresh = false;
 
     @Inject
-    public DownloadMCP(Project project) {
-        this.location = new File(project.getProjectDir(), "/downloads/mcp.zip");
+    public DownloadMCP(File downloadDir) {
+        this.location = new File(downloadDir, "mcp.zip");
     }
 
     @TaskAction
     public void run() throws IOException {
         Objects.requireNonNull(location, "location cannot be null !");
+        System.out.println("Downloading MCP...");
         HttpURLConnection connection = (HttpURLConnection) new URL(urlPrefix + versionId + ".zip").openConnection();
         connection.setDoInput(true);
         if(!location.getParentFile().exists()) location.getParentFile().mkdirs();

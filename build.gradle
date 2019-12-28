@@ -19,6 +19,7 @@ repositories {
 dependencies {
     implementation gradleApi()
     shadow 'com.github.carleslc:simple-yaml:1.4.1'
+    shadow 'org.zeroturnaround:zt-zip:1.13'
 }
 
 gradlePlugin {
