@@ -20,9 +20,9 @@ public class LoggerProcessBuilder extends AsyncProcessBuilder {
         BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
         while(process.isAlive()) {
             String outLine = outReader.readLine();
-            if(outLine != null) outPrintStream.println(outLine);
+            if(outLine != null && outPrintStream != null) outPrintStream.println(outLine);
             String errorLine = errorReader.readLine();
-            if(errorLine != null) errorPrintStream.println(errorLine);
+            if(errorLine != null && errorPrintStream != null) errorPrintStream.println(errorLine);
         }
         return process;
     }
