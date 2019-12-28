@@ -1,6 +1,7 @@
 package fr.il_totore.manadrop;
 
 import fr.il_totore.manadrop.bungeecord.BungeeExtension;
+import fr.il_totore.manadrop.mcp.task.DownloadMCP;
 import fr.il_totore.manadrop.spigot.SpigotExtension;
 import fr.il_totore.manadrop.bungeecord.task.BuildBungeecord;
 import fr.il_totore.manadrop.spigot.task.BuildSpigot;
@@ -32,6 +33,10 @@ public class ManaDrop implements Plugin<Project> {
         project.getExtensions().create("bungee", BungeeExtension.class, project);
 
         MinecraftRepositoryHelper.setInstance(new MinecraftRepositoryHelper.MinecraftRepository(project.getRepositories()));
+
+        //MCP
+        DownloadMCP downloadMCP = project.getTasks().create("downloadMCP", DownloadMCP.class, project);
+        downloadMCP.setGroup("mcp");
     }
 
 }
