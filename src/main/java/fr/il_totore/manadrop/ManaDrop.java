@@ -2,10 +2,10 @@ package fr.il_totore.manadrop;
 
 import fr.il_totore.manadrop.bungeecord.BungeeExtension;
 import fr.il_totore.manadrop.bungeecord.task.BuildBungeecord;
-import fr.il_totore.manadrop.mcp.task.ClonePaper;
 import fr.il_totore.manadrop.mcp.task.CopyMinecraftClient;
 import fr.il_totore.manadrop.mcp.task.DownloadMCP;
 import fr.il_totore.manadrop.mcp.task.ExtractMCP;
+import fr.il_totore.manadrop.paper.task.ClonePaper;
 import fr.il_totore.manadrop.spigot.SpigotExtension;
 import fr.il_totore.manadrop.spigot.task.BuildSpigot;
 import fr.il_totore.manadrop.spigot.task.BuildTools;
@@ -13,6 +13,7 @@ import fr.il_totore.manadrop.task.CheckYaml;
 import fr.il_totore.manadrop.util.MinecraftOS;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.tasks.Copy;
 
 import java.io.File;
 
@@ -53,9 +54,12 @@ public class ManaDrop implements Plugin<Project> {
         copyMinecraftClient.setGroup("mcp");
 
         ClonePaper clonePaper = project.getTasks().create("clonePaper", ClonePaper.class, new File(downloadDir, "server/"), new File(project.getProjectDir(), "eclipse/Server"));
-        clonePaper.setGroup("mcp");
+        clonePaper.setGroup("paper");
 
-
+        Copy copyMinecraftServer = project.getTasks().create("copyMinecraftServer", Copy.class);
+        copyMinecraftServer.from(new File(downloadDir, "server"));
+        copyMinecraftServer.setDestinationDir(new File(project.getProjectDir(), "eclipse/Server"));
+        copyMinecraftServer.setGroup("mcp");
     }
 
 }
