@@ -1,4 +1,4 @@
-package fr.il_totore.manadrop.mcp.task;
+package fr.il_totore.manadrop.paper.task;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -23,14 +23,11 @@ public class ClonePaper extends DefaultTask {
 
     @TaskAction
     public void run() throws GitAPIException {
-        System.out.println("Cloning repository...");
         Git.cloneRepository()
                 .setURI(uri)
                 .setBranch(branch)
                 .setDirectory(tempDir)
                 .call();
-
-        System.out.println("Copying to destination directory...");
     }
 
     public String getUri() {
