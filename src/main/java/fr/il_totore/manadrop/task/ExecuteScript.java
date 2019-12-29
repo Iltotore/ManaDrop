@@ -6,6 +6,7 @@ import org.gradle.api.tasks.TaskAction;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.IOException;
 
 public class ExecuteScript extends DefaultTask {
 
@@ -22,12 +23,12 @@ public class ExecuteScript extends DefaultTask {
     }
 
     @TaskAction
-    public void run() {
+    public int run() throws IOException {
         LoggerProcessBuilder processBuilder = new LoggerProcessBuilder(new ProcessBuilder(),
                 showLogs ? System.out : null,
                 showLogs ? System.err : null);
 
-
+        return processBuilder.startAndWait().exitValue();
     }
 
     public File getFile() {

@@ -5,7 +5,9 @@ import fr.il_totore.manadrop.bungeecord.task.BuildBungeecord;
 import fr.il_totore.manadrop.mcp.task.CopyMinecraftClient;
 import fr.il_totore.manadrop.mcp.task.DownloadMCP;
 import fr.il_totore.manadrop.mcp.task.ExtractMCP;
+import fr.il_totore.manadrop.paper.PaperExtension;
 import fr.il_totore.manadrop.paper.task.ClonePaper;
+import fr.il_totore.manadrop.paper.task.PaperScript;
 import fr.il_totore.manadrop.spigot.SpigotExtension;
 import fr.il_totore.manadrop.spigot.task.BuildSpigot;
 import fr.il_totore.manadrop.spigot.task.BuildTools;
@@ -35,6 +37,17 @@ public class ManaDrop implements Plugin<Project> {
 
         project.getExtensions().create("spigot", SpigotExtension.class, project);
 
+        //Paper
+
+        PaperExtension paperExtension = project.getExtensions().create("paper", PaperExtension.class);
+        paperExtension.setPaperDir(new File(project.getProjectDir(), "eclipse/Server/"));
+        paperExtension.setPaperFile(new File(paperExtension.getPaperDir(), "paper"));
+
+        ClonePaper clonePaper = project.getTasks().create("clonePaper", ClonePaper.class, new File(downloadDir, "server/"), new File(project.getProjectDir(), "eclipse/Server"));
+        clonePaper.setGroup("paper");
+
+        PaperScript paperJar = project.getTasks().create("paperJar", PaperScript.class, paperExtension, )
+
         //Bungeecord
         BuildBungeecord buildBungeecord = project.getTasks().create("bungeePlugin", BuildBungeecord.class);
         buildBungeecord.setGroup("bungeecord");
@@ -52,9 +65,6 @@ public class ManaDrop implements Plugin<Project> {
 
         CopyMinecraftClient copyMinecraftClient = project.getTasks().create("copyMinecraftClient", CopyMinecraftClient.class, MinecraftOS.getByName(System.getProperty("os.name")), new File(project.getProjectDir(), "jars/"));
         copyMinecraftClient.setGroup("mcp");
-
-        ClonePaper clonePaper = project.getTasks().create("clonePaper", ClonePaper.class, new File(downloadDir, "server/"), new File(project.getProjectDir(), "eclipse/Server"));
-        clonePaper.setGroup("paper");
 
         Copy copyMinecraftServer = project.getTasks().create("copyMinecraftServer", Copy.class);
         copyMinecraftServer.from(new File(downloadDir, "server"));
