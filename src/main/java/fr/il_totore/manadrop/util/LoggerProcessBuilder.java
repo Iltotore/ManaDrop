@@ -15,15 +15,17 @@ public class LoggerProcessBuilder extends AsyncProcessBuilder {
 
     @Override
     public Process startAndWait() throws IOException {
+        redirectErrorStream(true);
         Process process = start();
         BufferedReader outReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-        while(process.isAlive()) {
-            String outLine = outReader.readLine();
-            if(outLine != null && outPrintStream != null) outPrintStream.println(outLine);
-            String errorLine = errorReader.readLine();
-            if(errorLine != null && errorPrintStream != null) errorPrintStream.println(errorLine);
-        }
+        String outLine;
+        String errorLine;
+        while((outLine = outReader.readLine()) != null && outPrintStream != null) outPrintStream.println(outLine);
+        while((errorLine = errorReader.readLine()) != null && errorPrintStream != null)
+            errorPrintStream.println(errorLine);
+        outReader.close();
+        errorReader.close();
         return process;
     }
 

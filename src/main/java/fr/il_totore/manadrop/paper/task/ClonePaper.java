@@ -12,21 +12,25 @@ public class ClonePaper extends DefaultTask {
 
     private String uri = "https://github.com/PaperMC/Paper";
     private String branch = "master";
-    private File tempDir;
     private File directory;
 
     @Inject
-    public ClonePaper(File tempDir, File defaultDir) {
-        this.tempDir = tempDir;
+    public ClonePaper(File defaultDir) {
         this.directory = defaultDir;
     }
 
     @TaskAction
     public void run() throws GitAPIException {
+        if(directory.exists()) {
+            System.out.println("Clearing " + directory.getAbsolutePath());
+            if(!directory.delete()) {
+                System.err.println("Unable to delete directory !");
+            }
+        }
         Git.cloneRepository()
                 .setURI(uri)
                 .setBranch(branch)
-                .setDirectory(tempDir)
+                .setDirectory(directory)
                 .call();
     }
 
@@ -48,14 +52,6 @@ public class ClonePaper extends DefaultTask {
 
     public void setBranchVersion(String version) {
         this.branch = "ver/" + version;
-    }
-
-    public File getTempDir() {
-        return tempDir;
-    }
-
-    public void setTempDir(File tempDir) {
-        this.tempDir = tempDir;
     }
 
     public File getDirectory() {

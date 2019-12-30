@@ -10,33 +10,24 @@ import java.io.IOException;
 
 public class ExecuteScript extends DefaultTask {
 
-    private File file;
     private File workDir;
     private String[] commands;
     private boolean showLogs = false;
 
     @Inject
-    public ExecuteScript(File paperFile, File workDir, String... commands) {
-        this.file = paperFile;
+    public ExecuteScript(File workDir, String... commands) {
         this.workDir = workDir;
         this.commands = commands;
     }
 
     @TaskAction
-    public int run() throws IOException {
-        LoggerProcessBuilder processBuilder = new LoggerProcessBuilder(new ProcessBuilder(),
+    public void run() throws IOException {
+        LoggerProcessBuilder processBuilder = new LoggerProcessBuilder(new ProcessBuilder(commands),
                 showLogs ? System.out : null,
                 showLogs ? System.err : null);
-
-        return processBuilder.startAndWait().exitValue();
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
+        processBuilder.getProcessBuilder().directory(workDir);
+        System.out.println("Starting process...");
+        System.out.println("Exit code: " + processBuilder.startAndWait().exitValue());
     }
 
     public File getWorkDir() {

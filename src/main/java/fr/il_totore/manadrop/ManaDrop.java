@@ -15,7 +15,6 @@ import fr.il_totore.manadrop.task.CheckYaml;
 import fr.il_totore.manadrop.util.MinecraftOS;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.tasks.Copy;
 
 import java.io.File;
 
@@ -38,15 +37,17 @@ public class ManaDrop implements Plugin<Project> {
         project.getExtensions().create("spigot", SpigotExtension.class, project);
 
         //Paper
-
         PaperExtension paperExtension = project.getExtensions().create("paper", PaperExtension.class);
         paperExtension.setPaperDir(new File(project.getProjectDir(), "eclipse/Server/"));
-        paperExtension.setPaperFile(new File(paperExtension.getPaperDir(), "paper"));
 
-        ClonePaper clonePaper = project.getTasks().create("clonePaper", ClonePaper.class, new File(downloadDir, "server/"), new File(project.getProjectDir(), "eclipse/Server"));
+        ClonePaper clonePaper = project.getTasks().create("clonePaper", ClonePaper.class, new File(project.getProjectDir(), "eclipse/Server/"));
         clonePaper.setGroup("paper");
 
-        PaperScript paperJar = project.getTasks().create("paperJar", PaperScript.class, paperExtension, )
+        PaperScript paperJar = project.getTasks().create("paperJar", PaperScript.class, paperExtension, new String[]{"sh", "paper", "jar"});
+        paperJar.setGroup("paper");
+
+        PaperScript paperDev = project.getTasks().create("paperDev", PaperScript.class, paperExtension, new String[]{"sh", "paper", "mcdev"});
+        paperDev.setGroup("paper");
 
         //Bungeecord
         BuildBungeecord buildBungeecord = project.getTasks().create("bungeePlugin", BuildBungeecord.class);
@@ -66,10 +67,7 @@ public class ManaDrop implements Plugin<Project> {
         CopyMinecraftClient copyMinecraftClient = project.getTasks().create("copyMinecraftClient", CopyMinecraftClient.class, MinecraftOS.getByName(System.getProperty("os.name")), new File(project.getProjectDir(), "jars/"));
         copyMinecraftClient.setGroup("mcp");
 
-        Copy copyMinecraftServer = project.getTasks().create("copyMinecraftServer", Copy.class);
-        copyMinecraftServer.from(new File(downloadDir, "server"));
-        copyMinecraftServer.setDestinationDir(new File(project.getProjectDir(), "eclipse/Server"));
-        copyMinecraftServer.setGroup("mcp");
+
     }
 
 }
