@@ -2,7 +2,7 @@ package fr.il_totore.manadrop;
 
 import fr.il_totore.manadrop.bungeecord.BungeeExtension;
 import fr.il_totore.manadrop.bungeecord.task.BuildBungeecord;
-import fr.il_totore.manadrop.mcp.task.CopyMinecraftClient;
+import fr.il_totore.manadrop.mcp.task.CopyClientData;
 import fr.il_totore.manadrop.mcp.task.DownloadMCP;
 import fr.il_totore.manadrop.mcp.task.ExtractMCP;
 import fr.il_totore.manadrop.paper.PaperExtension;
@@ -13,8 +13,10 @@ import fr.il_totore.manadrop.spigot.task.BuildSpigot;
 import fr.il_totore.manadrop.spigot.task.BuildTools;
 import fr.il_totore.manadrop.task.CheckYaml;
 import fr.il_totore.manadrop.util.MinecraftOS;
+import javafx.scene.effect.Shadow;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.tasks.Copy;
 
 import java.io.File;
 
@@ -64,10 +66,13 @@ public class ManaDrop implements Plugin<Project> {
         ExtractMCP extractMCP = project.getTasks().create("extractMCP", ExtractMCP.class, downloadDir, project.getProjectDir());
         extractMCP.setGroup("mcp");
 
-        CopyMinecraftClient copyMinecraftClient = project.getTasks().create("copyMinecraftClient", CopyMinecraftClient.class, MinecraftOS.getByName(System.getProperty("os.name")), new File(project.getProjectDir(), "jars/"));
+        CopyClientData copyClientData = project.getTasks().create("copyClientData", CopyClientData.class, MinecraftOS.getByName(System.getProperty("os.name")), new File(project.getProjectDir(), "jars/"));
+        copyClientData.setGroup("mcp");
+
+        Copy copyMinecraftClient = project.getTasks().create("copyMinecraftClient", Copy.class);
         copyMinecraftClient.setGroup("mcp");
-
-
+        copyMinecraftClient.from(new File(project.getProjectDir(), "src/minecraft"));
+        copyMinecraftClient.into(new File(project.get));
     }
 
 }

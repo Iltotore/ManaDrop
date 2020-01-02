@@ -14,10 +14,12 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io/" }
+    gradlePluginPortal()
 }
 
 dependencies {
     implementation gradleApi()
+    implementation 'gradle.plugin.com.github.erdi:idea-gradle-plugins:2.2'
     shadow 'com.github.carleslc:simple-yaml:1.4.1'
     shadow 'org.zeroturnaround:zt-zip:1.13'
     shadow 'org.eclipse.jgit:org.eclipse.jgit:5.6.0.201912101111-r'

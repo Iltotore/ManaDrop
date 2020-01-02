@@ -6,10 +6,10 @@ import org.gradle.api.tasks.Copy;
 import javax.inject.Inject;
 import java.io.File;
 
-public class CopyMinecraftClient extends Copy {
+public class CopyClientData extends Copy {
 
     @Inject
-    public CopyMinecraftClient(MinecraftOS os, File jarsFolder) {
+    public CopyClientData(MinecraftOS os, File jarsFolder) {
         from(os.getMinecraftHome());
         into(jarsFolder);
     }
