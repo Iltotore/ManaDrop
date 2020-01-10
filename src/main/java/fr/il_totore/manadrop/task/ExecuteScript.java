@@ -21,11 +21,11 @@ public class ExecuteScript extends DefaultTask {
     }
 
     @TaskAction
-    public void run() throws IOException {
+    public void run() throws IOException, InterruptedException {
         LoggerProcessBuilder processBuilder = new LoggerProcessBuilder(new ProcessBuilder(commands),
                 showLogs ? System.out : null,
                 showLogs ? System.err : null);
-        processBuilder.getProcessBuilder().directory(workDir);
+        processBuilder.directory(workDir);
         System.out.println("Starting process...");
         System.out.println("Exit code: " + processBuilder.startAndWait().exitValue());
     }

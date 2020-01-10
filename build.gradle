@@ -23,6 +23,7 @@ dependencies {
     shadow 'com.github.carleslc:simple-yaml:1.4.1'
     shadow 'org.zeroturnaround:zt-zip:1.13'
     shadow 'org.eclipse.jgit:org.eclipse.jgit:5.6.0.201912101111-r'
+    shadow 'com.github.vatbub:mslinks:1.0.5'
 }
 
 gradlePlugin {

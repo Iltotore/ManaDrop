@@ -4,16 +4,18 @@ import java.io.File;
 
 public enum MinecraftOS {
 
-    WINDOWS("windows", new File(System.getProperty("user.home") + "/AppData/Roaming/.minecraft/")),
-    LINUX("linux", new File(System.getProperty("user.home") + "/.minecraft/")),
-    MAC("os x", new File(System.getProperty("user.home") + "/Library/Application Support/minecraft/"));
+    WINDOWS("windows", new File(System.getProperty("user.home") + "/AppData/Roaming/.minecraft/"), "bat"),
+    LINUX("linux", new File(System.getProperty("user.home") + "/.minecraft/"), "sh"),
+    MAC("os x", new File(System.getProperty("user.home") + "/Library/Application Support/minecraft/"), "sh");
 
     private String name;
     private File minecraftHome;
+    private String scriptType;
 
-    MinecraftOS(String name, File minecraftHome) {
+    MinecraftOS(String name, File minecraftHome, String scriptType) {
         this.name = name;
         this.minecraftHome = minecraftHome;
+        this.scriptType = scriptType;
     }
 
     public File getMinecraftHome() {
@@ -22,6 +24,10 @@ public enum MinecraftOS {
 
     public String getName() {
         return name;
+    }
+
+    public String getScriptType() {
+        return scriptType;
     }
 
     public static MinecraftOS getByName(String name) {

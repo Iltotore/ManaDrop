@@ -14,7 +14,7 @@ public class LoggerProcessBuilder extends AsyncProcessBuilder {
     }
 
     @Override
-    public Process startAndWait() throws IOException {
+    public Process startAndWait() throws IOException, InterruptedException {
         redirectErrorStream(true);
         Process process = start();
         BufferedReader outReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -26,6 +26,7 @@ public class LoggerProcessBuilder extends AsyncProcessBuilder {
             errorPrintStream.println(errorLine);
         outReader.close();
         errorReader.close();
+        process.waitFor();
         return process;
     }
 

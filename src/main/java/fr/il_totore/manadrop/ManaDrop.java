@@ -2,7 +2,9 @@ package fr.il_totore.manadrop;
 
 import fr.il_totore.manadrop.bungeecord.BungeeExtension;
 import fr.il_totore.manadrop.bungeecord.task.BuildBungeecord;
+import fr.il_totore.manadrop.mcp.MCPExtension;
 import fr.il_totore.manadrop.mcp.task.CopyClientData;
+import fr.il_totore.manadrop.mcp.task.DecompileClient;
 import fr.il_totore.manadrop.mcp.task.DownloadMCP;
 import fr.il_totore.manadrop.mcp.task.ExtractMCP;
 import fr.il_totore.manadrop.paper.PaperExtension;
@@ -13,7 +15,6 @@ import fr.il_totore.manadrop.spigot.task.BuildSpigot;
 import fr.il_totore.manadrop.spigot.task.BuildTools;
 import fr.il_totore.manadrop.task.CheckYaml;
 import fr.il_totore.manadrop.util.MinecraftOS;
-import javafx.scene.effect.Shadow;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.Copy;
@@ -26,7 +27,7 @@ public class ManaDrop implements Plugin<Project> {
     public void apply(Project project) {
 
         File downloadDir = new File(project.getProjectDir(), "downloads/");
-
+        MinecraftOS os = MinecraftOS.getByName(System.getProperty("os.name"));
         //Misc
         project.getTasks().create("checkYaml", CheckYaml.class);
 
@@ -60,19 +61,26 @@ public class ManaDrop implements Plugin<Project> {
         MinecraftRepositoryHelper.setInstance(new MinecraftRepositoryHelper.MinecraftRepository(project.getRepositories()));
 
         //MCP
+        MCPExtension mcpExtension = project.getExtensions().create("mcp", MCPExtension.class, project);
+
         DownloadMCP downloadMCP = project.getTasks().create("downloadMCP", DownloadMCP.class, downloadDir);
         downloadMCP.setGroup("mcp");
 
         ExtractMCP extractMCP = project.getTasks().create("extractMCP", ExtractMCP.class, downloadDir, project.getProjectDir());
         extractMCP.setGroup("mcp");
 
-        CopyClientData copyClientData = project.getTasks().create("copyClientData", CopyClientData.class, MinecraftOS.getByName(System.getProperty("os.name")), new File(project.getProjectDir(), "jars/"));
+        CopyClientData copyClientData = project.getTasks().create("copyClientData", CopyClientData.class);
         copyClientData.setGroup("mcp");
+        copyClientData.update(mcpExtension);
 
         Copy copyMinecraftClient = project.getTasks().create("copyMinecraftClient", Copy.class);
         copyMinecraftClient.setGroup("mcp");
         copyMinecraftClient.from(new File(project.getProjectDir(), "src/minecraft"));
-        copyMinecraftClient.into(new File(project.get));
+
+        DecompileClient decompileClient = project.getTasks().create("decompileClient", DecompileClient.class, project.getProjectDir(), os);
+        decompileClient.setShowLogs(true);
+        decompileClient.setGroup("mcp");
     }
+
 
 }
