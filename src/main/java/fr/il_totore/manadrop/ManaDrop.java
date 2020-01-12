@@ -15,6 +15,8 @@ import fr.il_totore.manadrop.spigot.task.BuildSpigot;
 import fr.il_totore.manadrop.spigot.task.BuildTools;
 import fr.il_totore.manadrop.task.CheckYaml;
 import fr.il_totore.manadrop.util.MinecraftOS;
+import fr.il_totore.manadrop.vanilla.VanillaExtension;
+import fr.il_totore.manadrop.vanilla.task.DownloadMappings;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.Copy;
@@ -80,6 +82,10 @@ public class ManaDrop implements Plugin<Project> {
         DecompileClient decompileClient = project.getTasks().create("decompileClient", DecompileClient.class, project.getProjectDir(), os);
         decompileClient.setShowLogs(true);
         decompileClient.setGroup("mcp");
+
+        //Vanilla
+        VanillaExtension vanillaExtension = project.getExtensions().create("vanilla", VanillaExtension.class, project);
+        DownloadMappings downloadMappings = project.getTasks().create("downloadMappings", DownloadMappings.class, vanillaExtension, downloadDir);
     }
 
 
