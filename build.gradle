@@ -7,13 +7,14 @@ plugins {
 }
 
 group 'fr.il_totore'
-version '0.2-SNAPSHOT'
+version '0.3-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven { url "https://jitpack.io/" }
+    maven { url 'https://jitpack.io/' }
+    maven { url 'https://maven.fabricmc.net'}
     gradlePluginPortal()
 }
 
@@ -21,9 +22,8 @@ dependencies {
     implementation gradleApi()
     implementation 'gradle.plugin.com.github.erdi:idea-gradle-plugins:2.2'
     shadow 'com.github.carleslc:simple-yaml:1.4.1'
-    shadow 'org.zeroturnaround:zt-zip:1.13'
     shadow 'org.eclipse.jgit:org.eclipse.jgit:5.6.0.201912101111-r'
-    shadow 'com.github.vatbub:mslinks:1.0.5'
+    shadow 'cuchaz:enigma:0.14.3.146'
 }
 
 gradlePlugin {
