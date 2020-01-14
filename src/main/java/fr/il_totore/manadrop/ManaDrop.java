@@ -2,11 +2,6 @@ package fr.il_totore.manadrop;
 
 import fr.il_totore.manadrop.bungeecord.BungeeExtension;
 import fr.il_totore.manadrop.bungeecord.task.BuildBungeecord;
-import fr.il_totore.manadrop.mcp.MCPExtension;
-import fr.il_totore.manadrop.mcp.task.CopyClientData;
-import fr.il_totore.manadrop.mcp.task.DecompileClient;
-import fr.il_totore.manadrop.mcp.task.DownloadMCP;
-import fr.il_totore.manadrop.mcp.task.ExtractMCP;
 import fr.il_totore.manadrop.paper.PaperExtension;
 import fr.il_totore.manadrop.paper.task.ClonePaper;
 import fr.il_totore.manadrop.paper.task.PaperScript;
@@ -20,7 +15,6 @@ import fr.il_totore.manadrop.vanilla.task.Deobfuscate;
 import fr.il_totore.manadrop.vanilla.task.DownloadMappings;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.tasks.Copy;
 
 import java.io.File;
 
@@ -62,27 +56,6 @@ public class ManaDrop implements Plugin<Project> {
         project.getExtensions().create("bungee", BungeeExtension.class, project);
 
         MinecraftRepositoryHelper.setInstance(new MinecraftRepositoryHelper.MinecraftRepository(project.getRepositories()));
-
-        //MCP
-        MCPExtension mcpExtension = project.getExtensions().create("mcp", MCPExtension.class, project);
-
-        DownloadMCP downloadMCP = project.getTasks().create("downloadMCP", DownloadMCP.class, downloadDir);
-        downloadMCP.setGroup("mcp");
-
-        ExtractMCP extractMCP = project.getTasks().create("extractMCP", ExtractMCP.class, downloadDir, project.getProjectDir());
-        extractMCP.setGroup("mcp");
-
-        CopyClientData copyClientData = project.getTasks().create("copyClientData", CopyClientData.class);
-        copyClientData.setGroup("mcp");
-        copyClientData.update(mcpExtension);
-
-        Copy copyMinecraftClient = project.getTasks().create("copyMinecraftClient", Copy.class);
-        copyMinecraftClient.setGroup("mcp");
-        copyMinecraftClient.from(new File(project.getProjectDir(), "src/minecraft"));
-
-        DecompileClient decompileClient = project.getTasks().create("decompileClient", DecompileClient.class, project.getProjectDir(), os);
-        decompileClient.setShowLogs(true);
-        decompileClient.setGroup("mcp");
 
         //Vanilla
         VanillaExtension vanillaExtension = project.getExtensions().create("vanilla", VanillaExtension.class, project);
