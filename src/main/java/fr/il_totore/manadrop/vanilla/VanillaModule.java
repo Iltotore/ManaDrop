@@ -9,20 +9,21 @@ public class VanillaModule {
 
     private String module = "Default";
     private DefaultOptional<File> dir = DefaultOptional.empty();
-    private String mappingHash = "";
+    private String mappingHash = null;
     private String mappingType = "client";
     private DefaultOptional<String> mappingUrl = DefaultOptional.empty(String.class)
-            .defaultValue(() -> "https://launcher.mojang.com/v1/objects/" + mappingHash + "/" + mappingType + ".json");
+            .defaultValue(() -> "https://launcher.mojang.com/v1/objects/" + mappingHash + "/" + mappingType + ".txt");
 
     public VanillaModule() {
     }
 
-    public VanillaModule(Project project) {
+    public VanillaModule(Project project, String mappingType) {
         dir.defaultValue(() -> project.file(module.replace(".", "/")));
+        this.mappingType = mappingType;
     }
 
-    public VanillaModule(Project project, String module) {
-        this(project);
+    public VanillaModule(Project project, String mappingType, String module) {
+        this(project, mappingType);
         this.module = module;
     }
 
@@ -35,7 +36,7 @@ public class VanillaModule {
     }
 
     public File getDir() {
-        return dir.get();
+        return dir.getOrDefault();
     }
 
     public void setDir(File dir) {
@@ -46,7 +47,7 @@ public class VanillaModule {
         return mappingHash;
     }
 
-    public void setMappingHash(String mappingHash) {
+    public void mappingHash(String mappingHash) {
         this.mappingHash = mappingHash;
     }
 
@@ -54,7 +55,7 @@ public class VanillaModule {
         return mappingType;
     }
 
-    public void setMappingType(String mappingType) {
+    public void mappingType(String mappingType) {
         this.mappingType = mappingType;
     }
 

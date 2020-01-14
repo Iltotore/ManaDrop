@@ -15,18 +15,18 @@ public class DownloadMappings extends DefaultTask {
 
     private boolean refresh = false;
     private VanillaExtension extension;
-    private File downloadDir;
 
     @Inject
-    public DownloadMappings(VanillaExtension extension, File downloadDir) {
+    public DownloadMappings(VanillaExtension extension) {
         this.extension = extension;
-        this.downloadDir = downloadDir;
     }
 
     @TaskAction
     public void run() throws IOException {
-        download(extension.getClient().getMappingUrl(), downloadDir, "client.json");
-        download(extension.getServer().getMappingUrl(), downloadDir, "server.json");
+        if(extension.getClient().getMappingHash() != null)
+            download(extension.getClient().getMappingUrl(), extension.getEnigma().getJarsDir(), "client.txt");
+        if(extension.getServer().getMappingHash() != null)
+            download(extension.getServer().getMappingUrl(), extension.getEnigma().getJarsDir(), "server.txt");
     }
 
     private void download(String url, File dir, String child) throws IOException {
@@ -37,14 +37,6 @@ public class DownloadMappings extends DefaultTask {
         File location = new File(dir, child);
         if(refresh && location.exists()) location.delete();
         Files.copy(connection.getInputStream(), location.toPath());
-    }
-
-    public File getDownloadDir() {
-        return downloadDir;
-    }
-
-    public void setDownloadDir(File downloadDir) {
-        this.downloadDir = downloadDir;
     }
 
     public boolean isRefresh() {

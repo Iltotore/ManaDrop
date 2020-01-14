@@ -1,8 +1,11 @@
 package fr.il_totore.manadrop.vanilla;
 
+import groovy.lang.Closure;
 import org.gradle.api.Action;
 import org.gradle.api.Project;
+import org.gradle.util.ConfigureUtil;
 
+import javax.inject.Inject;
 import java.io.File;
 
 public class VanillaExtension {
@@ -12,11 +15,12 @@ public class VanillaExtension {
     private VanillaModule server;
     private File mappingsDir;
 
+    @Inject
     public VanillaExtension(Project project) {
         this.enigma = new Enigma(project);
         this.mappingsDir = project.file("mappings/");
-        this.client = new VanillaModule(project, "Client");
-        this.server = new VanillaModule(project, "Server");
+        this.client = new VanillaModule(project, "client", "Client");
+        this.server = new VanillaModule(project, "server", "Server");
     }
 
     public Enigma getEnigma() {
@@ -34,6 +38,11 @@ public class VanillaExtension {
     public void setClient(Action<VanillaModule> action) {
         action.execute(this.client);
     }
+
+    public void setClient(Closure<VanillaModule> closure) {
+        ConfigureUtil.configure(closure, this.client);
+    }
+
 
     public VanillaModule getServer() {
         return server;
