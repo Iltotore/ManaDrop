@@ -6,22 +6,16 @@ import fr.il_totore.manadrop.spigot.SpigotExtension;
 import fr.il_totore.manadrop.spigot.task.BuildSpigot;
 import fr.il_totore.manadrop.spigot.task.BuildTools;
 import fr.il_totore.manadrop.task.CheckYaml;
-import fr.il_totore.manadrop.util.MinecraftOS;
 import fr.il_totore.manadrop.vanilla.VanillaExtension;
 import fr.il_totore.manadrop.vanilla.task.Deobfuscate;
 import fr.il_totore.manadrop.vanilla.task.DownloadMappings;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
-import java.io.File;
-
 public class ManaDrop implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
-
-        File downloadDir = new File(project.getProjectDir(), "downloads/");
-        MinecraftOS os = MinecraftOS.getByName(System.getProperty("os.name"));
         //Misc
         project.getTasks().create("checkYaml", CheckYaml.class);
 
