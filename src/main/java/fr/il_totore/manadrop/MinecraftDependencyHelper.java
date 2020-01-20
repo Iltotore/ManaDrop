@@ -10,7 +10,7 @@ public class MinecraftDependencyHelper {
         return "org.spigotmc:spigot:" + version + "-R0.1-SNAPSHOT";
     }
 
-    public static String bukkitDependency(String version) {
+    public static String bukkitApiDependency(String version) {
         return "org.bukkit:bukkit:" + version + "-R0.1-SNAPSHOT";
     }
 
