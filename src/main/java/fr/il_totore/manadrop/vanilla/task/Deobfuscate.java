@@ -35,6 +35,7 @@ public class Deobfuscate extends DefaultTask {
 
     @TaskAction
     public void run() throws IOException, MappingParseException {
+        System.out.println("WARNING: This is an experimental feature. The Minecraft sources may not be decompiled correctly.");
         cuchaz.enigma.Enigma enigma = cuchaz.enigma.Enigma.create();
         deobfuscate(enigma, extension.getClient(), extension.getEnigma());
         deobfuscate(enigma, extension.getServer(), extension.getEnigma());

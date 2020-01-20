@@ -15,14 +15,11 @@ repositories {
     mavenCentral()
     maven { url 'https://jitpack.io/' }
     maven { url 'https://maven.fabricmc.net'}
-    gradlePluginPortal()
 }
 
 dependencies {
     implementation gradleApi()
-    implementation 'gradle.plugin.com.github.erdi:idea-gradle-plugins:2.2'
     shadow 'com.github.carleslc:simple-yaml:1.4.1'
-    shadow 'org.eclipse.jgit:org.eclipse.jgit:5.6.0.201912101111-r'
     shadow 'cuchaz:enigma:0.14.3.146'
 }
 
