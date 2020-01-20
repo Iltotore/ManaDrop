@@ -26,7 +26,7 @@ public class MinecraftDependencyHelper {
         return "org.github.paperspigot:paperspigot-api:" + version + "-R0.1-SNAPSHOT";
     }
 
-    public static String waterfallDependency(String version) {
+    public static String waterfallApiDependency(String version) {
         return "io.github.waterfallmc:waterfall-api:" + version + "-SNAPSHOT";
     }
 }
