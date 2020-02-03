@@ -22,7 +22,7 @@ public class BuildTools extends DefaultTask {
     public boolean showMavenInstallCheckLogs = false;
     public boolean showBuildToolsLogs = true;
     public int maxRamAllowed = 1024;
-    public String mavenPath = System.getenv("MAVEN_HOME") + "/bin/mvn" + (System.getenv("OS").toLowerCase().contains("win") ? ".cmd" : "");
+    public String mavenPath = System.getenv("MAVEN_HOME") + "/bin/mvn" + (System.getenv("OS") != null && System.getenv("OS").toLowerCase().contains("win") ? ".cmd" : "");
 
     @TaskAction
     public void run() throws IOException, InterruptedException {
