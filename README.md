@@ -38,3 +38,5 @@ plugins {
    id 'fr.il_totore.manadrop' version 'version'
 }
 ```
+
+Check the latest available version [here](https://plugins.gradle.org/plugin/fr.il_totore.manadrop)
