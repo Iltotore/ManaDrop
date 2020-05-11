@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'fr.il_totore'
-version '0.3-SNAPSHOT'
+version '0.3-SNAPSHOT-fixed'
 
 sourceCompatibility = 1.8
 

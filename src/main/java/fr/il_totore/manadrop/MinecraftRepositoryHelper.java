@@ -18,16 +18,16 @@ public class MinecraftRepositoryHelper {
     }
 
 
-    public static MavenArtifactRepository spigotRepository() {
-        return instance.spigotRepository();
+    public static MavenArtifactRepository spigotSnapshot() {
+        return instance.spigotSnapshot();
     }
 
-    public static MavenArtifactRepository sonatypeRepository() {
-        return instance.sonatypeRepository();
+    public static MavenArtifactRepository sonatype() {
+        return instance.sonatype();
     }
 
-    public static MavenArtifactRepository paperRepository() {
-        return instance.paperRepository();
+    public static MavenArtifactRepository paperPublic() {
+        return instance.paperPublic();
     }
 
     public static class MinecraftRepository {
@@ -46,17 +46,17 @@ public class MinecraftRepositoryHelper {
             this.repositoryHandler = repositoryHandler;
         }
 
-        public MavenArtifactRepository spigotRepository() {
+        public MavenArtifactRepository spigotSnapshot() {
             return repositoryHandler.maven(repository ->
                     repository.setUrl(URI.create("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")));
         }
 
-        public MavenArtifactRepository sonatypeRepository() {
+        public MavenArtifactRepository sonatype() {
             return repositoryHandler.maven(repository ->
                     repository.setUrl(URI.create("https://oss.sonatype.org/content/repositories/snapshots")));
         }
 
-        public MavenArtifactRepository paperRepository() {
+        public MavenArtifactRepository paperPublic() {
             return repositoryHandler.maven(repository ->
                     repository.setUrl(URI.create("https://papermc.io/repo/repository/maven-public/")));
         }
