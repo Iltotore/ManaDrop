@@ -14,13 +14,11 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io/' }
-    maven { url 'https://maven.fabricmc.net'}
 }
 
 dependencies {
     implementation gradleApi()
     shadow 'com.github.carleslc:simple-yaml:1.4.1'
-    shadow 'cuchaz:enigma:0.14.3.146'
 }
 
 gradlePlugin {
