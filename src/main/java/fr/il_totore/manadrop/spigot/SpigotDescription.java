@@ -19,7 +19,7 @@ public class SpigotDescription extends Description {
     @Override
     public void write(ConfigurationSection section) {
         super.write(section);
-        load.ifPresent(value -> section.set("load", value));
+        load.ifPresent(value -> section.set("load", value.name()));
         apiVersion.ifPresent(value -> section.set("apiVersion", value));
     }
 
