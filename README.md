@@ -9,10 +9,10 @@ A Gradle plugin for Minecraft development.
 
 # Description
 ManaDrop is a Gradle plugin designed to help Minecraft developers.
-It help automatising some tasks and make project more portable.
+It helps to automatise some tasks and makes projects more portables.
 
 # Features
-Here is main features of this plugin. For more details about them, check the [wiki](https://github.com/Iltotore/ManaDrop/wiki/)
+Here are main features of this plugin. For more details about them, check the [wiki](https://github.com/Iltotore/ManaDrop/wiki/)
 
 ## General
 - [Dependency and Repository shortcuts](https://github.com/Iltotore/ManaDrop/wiki/General-features#dependency-and-repository-shortcuts)
@@ -29,7 +29,7 @@ Here is main features of this plugin. For more details about them, check the [wi
 - [Minecraft 1.15+ deobfuscation (experimental)](https://github.com/Iltotore/ManaDrop/wiki/Vanilla#setup-buildgradle)
 
 # Use in your project
-You can use this plugin in your Gradle build by applying it.
+You can use this plugin in your Gradle Build by applying it.
 - Using `apply plugin: fr.il_totore.manadrop:version`
 
 - Using the new `plugins` statement
