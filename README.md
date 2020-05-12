@@ -25,9 +25,6 @@ Here are main features of this plugin. For more details about them, check the [w
 ## BungeeCord and Waterfall
 - [Bungee.yml generation](https://github.com/Iltotore/ManaDrop/wiki/BungeeCord#bungeeyml-generation)
 
-## Vanilla
-- [Minecraft 1.15+ deobfuscation (experimental)](https://github.com/Iltotore/ManaDrop/wiki/Vanilla#setup-buildgradle)
-
 # Use in your project
 You can use this plugin in your Gradle Build by applying it.
 - Using `apply plugin: fr.il_totore.manadrop:version`
