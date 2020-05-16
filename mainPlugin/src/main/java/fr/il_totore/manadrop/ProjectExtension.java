@@ -1,4 +1,4 @@
-package fr.il_totore.manadrop.util;
+package fr.il_totore.manadrop;
 
 import org.gradle.api.Project;
 

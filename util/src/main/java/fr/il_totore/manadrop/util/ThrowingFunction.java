@@ -15,4 +15,5 @@ public interface ThrowingFunction<I, O> extends Function<I, O> {
     }
 
     O applyThrow(I i) throws Exception;
+
 }

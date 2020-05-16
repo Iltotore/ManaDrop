@@ -1,55 +1,24 @@
 plugins {
-    id 'java'
-    id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '5.1.0'
-    id "com.gradle.plugin-publish" version "0.10.1"
-    id "java-gradle-plugin"
+    id "com.github.johnrengelman.shadow" version "5.2.0" apply false
 }
 
-group 'fr.il_totore'
-version '0.4-SNAPSHOT'
 
-sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-    maven { url 'https://jitpack.io/' }
-}
+allprojects {
 
-dependencies {
-    implementation gradleApi()
-    shadow 'com.github.carleslc:simple-yaml:1.4.1'
-}
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
 
-gradlePlugin {
-    plugins {
-        manadrop {
-            id = 'fr.il_totore.manadrop'
-            implementationClass = 'fr.il_totore.manadrop.ManaDrop'
-        }
+    group 'fr.il_totore'
+    version '0.4-SNAPSHOT'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io/' }
+        maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
-}
-
-pluginBundle {
-    ext['gradle.publish.key'] = System.getenv('gradle.publish.key')
-    ext['gradle.publish.secret'] = System.getenv('gradle.publish.secret')
-    website = 'https://github.com/Iltotore/ManaDrop'
-    vcsUrl = 'https://github.com/Iltotore/ManaDrop'
-    description = 'A Gradle plugin for Minecraft Development'
-    tags = ['minecraft', 'spigot', 'bungeecord']
-    plugins {
-        manadrop {
-            displayName = 'ManaDrop'
-        }
-    }
-}
-
-shadowJar {
-    configurations = [project.configurations.shadow]
-    classifier ''
-}
-
-jar {
-    enabled false
-    dependsOn shadowJar
 }

@@ -1,0 +1,7 @@
+subprojects {
+    dependencies {
+        shadow 'org.bitbucket.mstrobel:procyon-compilertools:0.5.36'
+        shadow 'org.xeustechnologies:jcl:2.8'
+        shadow project(':util')
+    }
+}
