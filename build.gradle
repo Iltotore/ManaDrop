@@ -10,7 +10,6 @@ allprojects {
     apply plugin: 'com.github.johnrengelman.shadow'
 
     group 'fr.il_totore'
-    version '0.4-SNAPSHOT'
 
     sourceCompatibility = 1.8
 

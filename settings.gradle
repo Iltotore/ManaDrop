@@ -1,1 +1,4 @@
 include 'mainPlugin', 'util', 'lint:core', 'lint:impl:spigot'
+
+project(':mainPlugin').name = 'manadrop'
+project(':lint:impl:spigot').name = 'manadrop.lint-spigot'
