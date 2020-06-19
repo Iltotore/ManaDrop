@@ -20,7 +20,7 @@ public class SpigotDescription extends Description {
     public void write(ConfigurationSection section) {
         super.write(section);
         load.ifPresent(value -> section.set("load", value.name()));
-        apiVersion.ifPresent(value -> section.set("apiVersion", value));
+        apiVersion.ifPresent(value -> section.set("api-version", value));
     }
 
     public void load(Load load) {
