@@ -4,6 +4,8 @@ plugins {
     id 'java-gradle-plugin'
 }
 
+version = '1.0'
+
 dependencies {
     implementation gradleApi()
     shadow 'com.github.carleslc:simple-yaml:1.4.1'

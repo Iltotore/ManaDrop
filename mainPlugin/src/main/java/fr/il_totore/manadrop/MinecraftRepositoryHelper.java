@@ -53,7 +53,7 @@ public class MinecraftRepositoryHelper {
 
         public MavenArtifactRepository sonatype() {
             return repositoryHandler.maven(repository ->
-                    repository.setUrl(URI.create("https://oss.sonatype.org/content/repositories/snapshots")));
+                    repository.setUrl(URI.create("https://oss.sonatype.org/content/repositories/snapshots/")));
         }
 
         public MavenArtifactRepository paperPublic() {
