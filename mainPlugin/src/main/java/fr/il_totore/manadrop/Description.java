@@ -56,8 +56,8 @@ public class Description implements YamlSerializable, ChildTask {
         description.ifPresent(value -> section.set("description", value));
         website.ifPresent(value -> section.set("website", value));
         depend.ifAllPresent(0, values -> section.set("depend", values));
-        softDepend.ifAllPresent(0, values -> section.set("softDepend", values));
-        loadBefore.ifAllPresent(0, values -> section.set("loadBefore", values));
+        softDepend.ifAllPresent(0, values -> section.set("softdepend", values));
+        loadBefore.ifAllPresent(0, values -> section.set("loadbefore", values));
         prefix.ifPresent(value -> section.set("prefix", value));
         commands.ifAllPresent(0, commandList -> {
             ConfigurationSection commandSection = section.createSection("commands");
