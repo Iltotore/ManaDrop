@@ -22,7 +22,7 @@ public class BuildTools extends DefaultTask {
     public boolean showMavenInstallCheckLogs = false;
     public boolean showBuildToolsLogs = true;
     public int maxRamAllowed = 1024;
-    public String mavenPath = System.getProperty("user.home") + ".m2/repository/";
+    public String mavenDirectory = System.getProperty("user.home") + ".m2/repository/";
 
     @TaskAction
     public void run() throws IOException, InterruptedException {
@@ -30,7 +30,6 @@ public class BuildTools extends DefaultTask {
             workDir = new File("$buildDir/spigot/");
         }
         Objects.requireNonNull(workDir, "workDir cannot be null !");
-        Objects.requireNonNull(mavenPath, "Can't find mavenPath !");
         if(!workDir.exists()) workDir.mkdirs();
         File buildTools = new File(workDir, "BuildTools.jar");
         if(refreshBuildTools) buildTools.delete();
@@ -42,11 +41,8 @@ public class BuildTools extends DefaultTask {
         }
         for(String version : allVersions) {
             System.out.println("Checking for " + version + "...");
-            LoggerProcessBuilder mavenProcessBuilder = new LoggerProcessBuilder(new ProcessBuilder(mavenPath, "dependency:get", "-Dartifact=\"org.spigotmc:spigot:" + version + "-R0.1-SNAPSHOT\""),
-                    showMavenInstallCheckLogs ? System.out : null,
-                    showMavenInstallCheckLogs ? System.err : null);
-            mavenProcessBuilder.environment().putAll(System.getenv());
-            if(mavenProcessBuilder.startAndWait().exitValue() == 0 && !refreshVersions) {
+
+            if (!hasLibraries("spigot-api", version + "-R0.1-SNAPSHOT") && !hasLibraries("spigot", version + "-R0.1-SNAPSHOT") && !refreshVersions) {
                 System.out.println(version + " is already installed! Skipping...");
                 continue;
             }
@@ -71,5 +67,10 @@ public class BuildTools extends DefaultTask {
 
     public Collection<String> allVersions() {
         return allVersions;
+    }
+
+    public boolean hasLibraries(String artifactId, String spigot_version) {
+        File file = new File(mavenDirectory, "org/spigotmc/" + artifactId + "/" + spigot_version + "/");
+        return file.exists();
     }
 }
