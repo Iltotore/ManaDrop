@@ -22,11 +22,16 @@ public class MinecraftDependencyHelper {
         return "net.md-5:bungeecord-api:" + version + "-SNAPSHOT";
     }
 
+    private static String getPaperGroup(String version) {
+        int majorVersion = Integer.parseInt(version.split(":")[1]);
+        return majorVersion >= 16 ? "io.papermc.paper" : "com.destroystokyo.paper";
+    }
+
     public static String paperApi(String version) {
-        return "com.destroystokyo.paper:paper-api:" + version + "-R0.1-SNAPSHOT";
+        return getPaperGroup(version) + ":paper-api:" + version + "-R0.1-SNAPSHOT";
     }
 
     public static String waterfallApi(String version) {
-        return "com.destroystokyo.paper:waterfall-api:" + version + "-SNAPSHOT";
+        return "io.github.waterfallmc:waterfall-api:" + version + "-SNAPSHOT";
     }
 }
