@@ -4,7 +4,7 @@ plugins {
     id 'java-gradle-plugin'
 }
 
-version = '1.0'
+version = '0.4.2-SNAPSHOT'
 
 dependencies {
     implementation gradleApi()
