@@ -35,6 +35,11 @@ public class SpigotDescription extends Description {
         this.apiVersion = Optional.ofNullable(apiVersion);
     }
 
+    public void apiVersionForMcVersion(String mcVersion) {
+        int version = Integer.parseInt(mcVersion.split("\\.")[1]);
+        this.apiVersion = Optional.ofNullable(mcVersion < 9 ? null : "1." + version);
+    }
+
     public enum Load {
         STARTUP, POSTWORLD
     }
