@@ -23,7 +23,7 @@ public class MinecraftDependencyHelper {
     }
 
     private static String getPaperGroup(String version) {
-        int majorVersion = Integer.parseInt(version.split(".")[1]);
+        int majorVersion = Integer.parseInt(version.split("\\.")[1]);
         return majorVersion >= 16 ? "io.papermc.paper" : "com.destroystokyo.paper";
     }
 
